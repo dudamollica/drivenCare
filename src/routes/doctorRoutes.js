@@ -11,7 +11,9 @@ doctorRouter.post("/signup", validateSchema(doctorSchema), doctorControllers.sig
 
 doctorRouter.post("/signin", doctorControllers.signIn);
 
-doctorRouter.post("/confirm-cancel", authMiddleware.authValidation, validateAccount("doctor"), doctorControllers.signIn);
+doctorRouter.post("/confirm", authMiddleware.authValidation, validateAccount("doctor"), doctorControllers.confirmAppointments);
+
+doctorRouter.post("/cancel", authMiddleware.authValidation, validateAccount("doctor"), doctorControllers.cancelAppointments);
 
 doctorRouter.get(
     "/appointments",

@@ -34,8 +34,20 @@ async function getAppointments(doctorId) {
   return rows
 }
 
+async function confirmAppointments(id) {
+  const {rowCount} = await appointmentRepositories.confirmAppointments(id);
+  if(!rowCount) throw new Error("Not Found");
+}
+
+async function cancelAppointments(id) {
+  const {rowCount} = await appointmentRepositories.cancelAppointments(id);
+  if(!rowCount) throw new Error("Not Found");
+}
+
 export default {
   signUp,
   signIn,
-  getAppointments
+  getAppointments,
+  confirmAppointments,
+  cancelAppointments
 };
