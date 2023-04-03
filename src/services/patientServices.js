@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import patientRepositories from "../repositories/patientRepositories.js";
 import { v4 as uuidV4 } from "uuid";
+import appointmentRepositories from "../repositories/appointmentRepositories.js";
 
 async function signUp({ name, email, password }) {
   const { rowCount } = await patientRepositories.findByEmail(email);
@@ -23,7 +24,14 @@ async function signIn({ email, password }) {
   return token;
 }
 
+async function scheduleAppointment({ patientId, doctorId, date, hour }) {
+  const {rows: [appointment]} = await appointmentRepositories.findAppointment({doctorId, date, hour});
+  if (appointment) throw new Error("Unavailable");
+  await appointmentRepositories.create({ patientId, doctorId, date, hour})
+}
+
 export default {
   signUp,
   signIn,
+  scheduleAppointment,
 };

@@ -25,7 +25,7 @@ async function findSessionByToken(token) {
 }
 
 async function findSessionById(id) {
-  return await db.query(`SELECT * FROM patientSessions WHERE id=$1`, [id]);
+  return await db.query(`SELECT * FROM users WHERE id=$1`, [id]);
 }
 
 export default {

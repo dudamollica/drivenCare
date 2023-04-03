@@ -21,8 +21,11 @@ async function signIn(req, res) {
 }
 
 async function scheduleAppointment(req,res){
+  const {id} = req.locals.user
+  const {doctorId, date, hour} = req.body
   try {
-    return res.status(201).send({ token });
+    await patientServices.scheduleAppointment({patientId: id, doctorId, date, hour})
+    return res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err.message);
   }
