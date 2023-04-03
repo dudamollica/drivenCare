@@ -20,8 +20,19 @@ async function signUp(req, res) {
     }
   }
 
+  async function getAppointments(req, res) {
+    const { id } = req.locals.user;
+    try {
+     const appointments = await doctorServices.getAppointments({doctorId:id});
+      return res.status(201).send(appointments);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  }
+
   export default {
     signUp,
     signIn,
+    getAppointments
   };
   

@@ -29,7 +29,13 @@ async function signIn({ email, password }) {
   return token;
 }
 
+async function getAppointments(doctorId) {
+  const {rows} = await appointmentRepositories.findDoctorAppointments(doctorId);
+  return rows
+}
+
 export default {
   signUp,
   signIn,
+  getAppointments
 };

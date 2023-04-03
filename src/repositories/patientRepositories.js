@@ -14,14 +14,14 @@ async function signUp({ name, email, password: hashPass }) {
 
 async function createSession({ token, userId }) {
   await db.query(
-    `INSERT INTO patientSessions (token, "userId")
+    `INSERT INTO "patientSessions" (token, "userId")
       VALUES ($1,$2)`,
     [token, userId]
   );
 }
 
 async function findSessionByToken(token) {
-  return await db.query(`SELECT * FROM patientSessions WHERE token=$1`, [token]);
+  return await db.query(`SELECT * FROM "patientSessions" WHERE token=$1`, [token]);
 }
 
 async function findSessionById(id) {
